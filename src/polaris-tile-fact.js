@@ -1,141 +1,179 @@
-// polaris-tile-fact.js
 import { LitElement, html, css } from 'lit';
 
-class PolarisTileFact extends LitElement {
+class PowerFactsSection extends LitElement {
     static styles = css`
         :host {
             display: block;
         }
 
-        .card-wrap-outer {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 16px;
-            max-width: 1000px; 
+        .power-facts-wrap {
+            padding-top: 2.75rem;
+            padding-bottom: 6.25rem;
+            background-color: #EEF3F7;
+            height: 100vh;
+            margin: auto;
+            max-width: 1200px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
             margin: auto;
         }
 
-        .bg {
-           // flex: 0 0 31.9%;
-            background-size: cover;
-            background-position: center;
-            background-blend-mode: multiply;
-            color: #fff;
-            position: relative;
-            box-shadow: 0 8px 16px 0 rgba(0, 3, 33, 0.1);
-            height: 25vw;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex: 0 0 calc(31.9% - 20px); 
-            margin-bottom: 20px; 
-            aspect-ratio: 1 / 1; 
-            overflow: hidden;
-        }
-
-        .bg:nth-child(odd) {
-            background-color: #1e407c;
-        }
-
-        .bg:nth-child(even) {
-            background-color: #001e44;
-        }
-
-        .bg:nth-child(3) {
-            background: linear-gradient(180deg, rgba(30, 64, 124, 1) 0%, rgba(0, 30, 68, 1) 65%, rgba(0, 30, 68, 1) 100%);
-        }
-
-        .bg:nth-child(4) {
-            background-color: rgba(0, 3, 33, 0.5);
-            background-image: url(../../psu-edu-assets/images/power-facts/penn-state-tuition.jpg);
-        }
-
-        .bg:nth-child(6) {
-            background-color: rgba(0, 3, 33, 0.5);
-            background-image: url(../../psu-edu-assets/images/power-facts/data-digest.jpg);
-        }
-
-        .content {
+        .power-facts {
             text-align: center;
         }
 
-        .hl {
-    line-height: 1.15;
-    -webkit-text-size-adjust: 100%;
-    -webkit-font-smoothing: antialiased;
-    --limestone-max-light: #f2f2f4;
-    --creek-max-light: #edf8f7;
-    --lion-max-shrine-light: #fdfbf5;
-    --lions-max-roar-light: #fffaf2;
-    --slate-max-light: #eef3f7;
-    --white-out: $ffffff;
-    font-family: Roboto,"Franklin Gothic Medium",Tahoma,sans-serif;
-    -webkit-box-direction: normal;
-    -webkit-box-flex: 0;
-    flex: 0 0 31.9%;
-    background-color: #fff;
-    position: relative;
-    box-shadow: 0 8px 16px 0 rgba(0,3,33,.1);
-    color: #001e44;
-    height: 25vw;
-}
+        .double-slash {
+            margin-bottom: 2rem;
+        }
 
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-auto-rows: 1fr;
+            gap: 16px 16px;
+            max-width: 650px;
+            grid-template-areas: " . . . " " . . . " " . . . ";
+        }
+
+        .grid-item {
+            background-size: cover;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            justify-content: center;
+            color: white;
+            flex-direction: column;
+            padding: 20px;
+            box-sizing: border-box;
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .grid-item-type1 {
+            background-color: #1e407c;
+        }
+
+        .grid-item-type2 {
+            background-color: #001E44;
+        }
+
+        .grid-item-type3 {
+            background-color: #ffffff;
+            color: #001E44;
+        }
+
+        .grid-item-type4 {
+            background-image: linear-gradient(#1e407c, #001E44);
+        }
+
+            
+        .grid-item-photo {
+            background-size: cover;
+            position: relative; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            padding: 20px;
+            box-sizing: border-box;
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            position: relative;
+        }
+
+        .grid-item-photo::before {
+            content: ""; 
+            position: absolute; 
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1; 
+        }
+
+        .grid-item-photo a {
+            color: white; 
+            text-decoration: none; 
+            z-index: 2; 
+        }
+
+
+        .grid-item h3 {
+            padding: 0 3.75rem;
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-top: 0;
+        }
+
+        .grid-item a {
+            text-align: center;
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .grid-item p {
+            font-size: 1rem;
+            line-height: 1.5rem;
+            width: 94%;
+        }
+
+        .grid-item h3.line {
+            margin: 0.5rem 0; 
+        }
     `;
 
     render() {
         return html`
-            <div class="card-wrap-outer">
-                ${this.generateCard("Nearly 88,000 students", "#1e407c")}
-                ${this.generateCardPercentage("58%", "Of students are Pennsylvania residents.", "#edf8f7")}
-                ${this.generateCard("Students from 50 states and 140+ countries", "linear-gradient(180deg, rgba(30, 64, 124, 1) 0%, rgba(0, 30, 68, 1) 65%, rgba(0, 30, 68, 1) 100%)")}
-                ${this.generateCardLink("Check out Undergraduate Admissions statistics", "https://admissions.psu.edu/apply/statistics/", "#001e44", "../../psu-edu-assets/images/power-facts/penn-state-tuition.jpg")}
-                ${this.generateCard("Nearly 10,000 international students", "#1e407c")}
-                ${this.generateCardPercentage("40%", "Of students are from diverse backgrounds.", "#edf8f7")}
-                ${this.generateCard("7,900+ faculty across all campuses", "#001e44")}
-                ${this.generateCard("775,000+ alumni", "#001e44")}
-                ${this.generateCardLink("See Penn State's Data Digest dashboards", "https://datadigest.psu.edu/", "rgba(0, 3, 33, 0.5)", "../../psu-edu-assets/images/power-facts/data-digest.jpg")}
-            </div>
-
+            <section class="power-facts-wrap">
+                <div class="container">
+                    <div class="power-facts">
+                        <h2 class="double-slash">Our community of Penn Staters //</h2>
+                        <div class="grid-container">
+                            ${this.generateCard("Nearly 88,000+ students", "grid-item-type1")}
+                            ${this.generateCardPercentage("58% ", "Of students are Pennsylvania residents.", "grid-item-type3")}
+                            ${this.generateCard("Students from 50 states and 140+ countries", "grid-item-type4")}
+                            ${this.generateCardLink("Check out Undergraduate Admissions statistics", "https://admissions.psu.edu/apply/statistics/", "grid-item-photo", "https://www.psu.edu/psu-edu-assets/images/power-facts/penn-state-tuition.jpg")}
+                            ${this.generateCard("Nearly 10,000 international students", "grid-item-type1")}
+                            ${this.generateCardPercentage("40% ", "Of students are from diverse backgrounds.", "grid-item-type3")}
+                            ${this.generateCard("7,900+ faculty across all campuses", "grid-item-type2")}
+                            ${this.generateCard("759,000+ alumni", "grid-item-type2")}
+                            ${this.generateCardLink("See Penn State's Data Digest dashboards", "https://datadigest.psu.edu/", "grid-item-photo", "https://www.psu.edu/psu-edu-assets/images/power-facts/data-digest.jpg")}
+                        </div>
+                    </div>
+                </div>
+            </section>
         `;
     }
 
-    generateCard(title, bgColor) {
+    generateCard(title, type) {
         return html`
-            <div class="bg" style="--bg-color: ${bgColor};">
-                <div class="content">
+            <div class="grid-item ${type}">
+                <h3>${title}</h3>
+            </div>
+        `;
+    }
+
+    generateCardPercentage(percentage, text, type) {
+        return html`
+            <div class="grid-item ${type}">
+                <h3>${percentage}</h3>    
+                <h4 class="line">____________________________</h4>    
+                <p>${text}</p>
+            </div>
+        `;
+    }
+
+    generateCardLink(title, link, type, imageUrl) {
+        return html`
+            <div class="grid-item-photo ${type}" style="background-image: url('${imageUrl}');">
+                <a href="${link}" class="card-link">
                     <h3>${title}</h3>
-                </div>
-            </div>
-        `;
-    }
-
-    generateCardPercentage(percentage, description, bgColor) {
-        return html`
-            <div class="hl" style="--bg-color: ${bgColor};">
-                <div class="content">
-                    <h3>${percentage}</h3>
-                    <b></b>
-                    <p>${description}</p>
-                </div>
-            </div>
-        `;
-    }
-
-    generateCardLink(title, link, bgColor, backgroundImage) {
-        return html`
-            <div class="bg" style="--bg-color: ${bgColor}; background-image: url(${backgroundImage});">
-                <div class="content">
-                    <a href="${link}" class="card-link">
-                        <h3>${title}</h3>
-                    </a>
-                </div>
-                <a href="${link}" class="card-link" aria-hidden="true">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    </svg>
                 </a>
             </div>
         `;
     }
 }
 
-customElements.define('polaris-tile-fact', PolarisTileFact);
+customElements.define('power-facts-section', PowerFactsSection);
